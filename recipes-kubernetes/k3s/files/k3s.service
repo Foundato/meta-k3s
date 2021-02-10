@@ -19,4 +19,8 @@ TasksMax=infinity
 TimeoutStartSec=0
 Restart=always
 RestartSec=5s
-ExecStart=@BINDIR@/k3s server --flannel-iface enp0s21f0u5 --data-dir=/data/rancher/k3s
+ExecStart=@BINDIR@/k3s server --data-dir=/data/rancher/k3s \
+                              --flannel-iface enp0s21f0u5 \
+                              --disable=traefik \
+                              --kube-apiserver-arg="enable-admission-plugins=NodeRestriction,PodSecurityPolicy,ServiceAccount" \
+                              --kube-apiserver-arg="service-node-port-range=5000-9000" \
